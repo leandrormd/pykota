@@ -380,6 +380,20 @@ class PyKotaConfig :
             return self.getGlobalOption("smtpserver")
         except PyKotaConfigError :    
             return "localhost"
+
+    def getSMTPUser(self) :    
+        """Returns the SMTP user to use to send messages to users."""
+        try :
+            return self.getGlobalOption("smtpuser")
+        except PyKotaConfigError :    
+            return ""
+
+    def getSMTPPassword(self):
+        """Returns the SMTP password to use to send messages to users."""
+        try:
+            return self.getGlobalOption("smtppassword")
+        except PyKotaConfigError:
+            return ""
         
     def getMailDomain(self) :    
         """Returns the mail domain to use to send messages to users."""

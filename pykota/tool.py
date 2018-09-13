@@ -185,6 +185,8 @@ class Tool :
         self.config = config.PyKotaConfig(confdir)
         self.debug = self.config.getDebug()
         self.smtpserver = self.config.getSMTPServer()
+        self.smtpuser = self.config.getSMTPUser()
+        self.smtppassword = self.config.getSMTPPassword()
         self.maildomain = self.config.getMailDomain()
         self.logger = logger.openLogger(self.config.getLoggingBackend())
             
@@ -357,6 +359,7 @@ class Tool :
             if crashrecipient :
                 admin = self.config.getAdminMail("global") # Nice trick, isn't it ?
                 server = smtplib.SMTP(self.smtpserver)
+                server.login(self.smtpuser, self.smtppassword)
                 msg = MIMEText(fullmessage, _charset=self.charset)
                 msg["Subject"] = Header("PyKota v%s crash traceback !" \
                                         % __version__, charset=self.charset)
@@ -479,6 +482,7 @@ class PyKotaTool(Tool) :
         """Sends an email message containing headers to some user."""
         try :    
             server = smtplib.SMTP(self.smtpserver)
+            server.login(self.smtpuser, self.smtppassword)
         except socket.error, msg :    
             self.printInfo(_("Impossible to connect to SMTP server : %s") % msg, "error")
         else :

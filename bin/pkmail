@@ -112,6 +112,7 @@ class PKMail(PyKotaTool) :
         emailmsg["To"] = useremail
         emailmsg["Date"] = email.Utils.formatdate(localtime=True)
         server = smtplib.SMTP(self.smtpserver)
+        server.login(self.smtpuser, self.smtppassword)
         server.sendmail(whoami, [ useremail ], emailmsg.as_string())
         server.quit()
         self.logdebug("Answer sent to : %s" % useremail)

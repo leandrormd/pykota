@@ -1066,6 +1066,7 @@ class CUPSBackend(PyKotaTool) :
                 fullmessage = self.Reason + (_("\n\nYour system administrator :\n\n\t%s - <%s>\n") % (admin, adminmail))
                 try :
                     server = smtplib.SMTP(self.smtpserver)
+                    server.login(self.smtpuser, self.smtppassword)
                 except socket.error, msg :
                     self.printInfo(_("Impossible to connect to SMTP server : %s") % msg, "error")
                 else :
